@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/src/.vs/CoffeeMap/DesignTimeBuild
+/src/.vs/CoffeeMap/v16
+/src/CoffeeMap/bin/Debug/netstandard2.0
+/src/CoffeeMap/obj
+/src/CoffeeMap.StartSpeedTest/bin/Debug/netcoreapp3.1
+/src/CoffeeMap.StartSpeedTest/obj
+/src/CoffeeMap.Tests/bin/Debug/netcoreapp3.1
+/src/CoffeeMap.Tests/obj
