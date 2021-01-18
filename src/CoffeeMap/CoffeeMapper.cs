@@ -9,9 +9,9 @@ namespace CoffeeMap
 {
     public class CoffeeMapper : ICoffeeMapper
     {
-        private readonly MappingInstructionHolder _mappingInstructions;
+        private readonly ClassMappingInstructionHolder _mappingInstructions;
 
-        public CoffeeMapper(MappingInstructionHolder mappingInstructions)
+        public CoffeeMapper(ClassMappingInstructionHolder mappingInstructions)
         {
             _mappingInstructions = mappingInstructions;
         }
@@ -28,29 +28,16 @@ namespace CoffeeMap
 
         public object Map(object source, Type sourceType, Type destinationType)
         {
-            // super TERRIBLE quick -- only for now -- implementation!
-            // this is NOT the final implementation at all whatsoever. I swear :D
-
-            // TODO: hashed search
-            MappingInstruction mapping = _mappingInstructions.MappingInstructions
+            // TODO: hashed search (dictionary?)
+            ClassMappingInstruction mapping = _mappingInstructions.MappingInstructions
                 .FirstOrDefault(_ => _.SourceType == sourceType && _.DestinationType == destinationType) ??
                 throw new Exceptions.NoMappingFoundException($"Couldn't find mapping from {sourceType.FullName} to {destinationType.FullName}");
 
-            object ret = Activator.CreateInstance(destinationType);
+            object destination = Activator.CreateInstance(destinationType);
 
-            // TODO: the properties obviously come from the mappings
-            PropertyInfo[] sourceProps = sourceType.GetProperties();
-            foreach (PropertyInfo destProp in destinationType.GetProperties())
-            {
-                PropertyInfo sourceProp = sourceProps.FirstOrDefault(_ => _.Name == destProp.Name)
-                    ?? throw new Exception($"Prop {destProp.Name} in {sourceType.FullName} not found");
+            mapping.Map(source, destination);
 
-                // TODO: obviously this should be a function/expression, but for now...
-                object sourceValueForThisProp = sourceProp.GetValue(source);
-                destProp.SetValue(ret, sourceValueForThisProp);
-            }
-
-            return ret;
+            return destination;
         }
     }
 }

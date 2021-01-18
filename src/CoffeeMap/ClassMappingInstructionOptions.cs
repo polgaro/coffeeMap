@@ -1,6 +1,6 @@
 ﻿namespace CoffeeMap
 {
-    public class MappingInstructionOptions
+    public class ClassMappingInstructionOptions
     {
         public bool AutoAddPropertiesWithSameName { get; set; } = true;
     }

@@ -25,7 +25,7 @@ namespace CoffeeMap.Tests
         [TestMethod]
         public void NoMappingFoundException()
         {
-            MappingInstructionHolder mappingInstructions = new MappingInstructionHolder();
+            ClassMappingInstructionHolder mappingInstructions = new ClassMappingInstructionHolder();
             ICoffeeMapper mapper = new CoffeeMapper(mappingInstructions);
             ExampleClass1 exampleObject1 = GetObject1(); 
             Assert.ThrowsException<NoMappingFoundException>
@@ -69,7 +69,7 @@ namespace CoffeeMap.Tests
 
         private static ICoffeeMapper CreateMapperWithExampleMapping()
         {
-            MappingInstructionHolder mappingInstructions = new MappingInstructionHolder();
+            ClassMappingInstructionHolder mappingInstructions = new ClassMappingInstructionHolder();
             mappingInstructions.AddMapping<ExampleClass1, ExampleClass2>();
             ICoffeeMapper mapper = new CoffeeMapper(mappingInstructions);
             return mapper;
